@@ -43,6 +43,38 @@ import jssc.SerialPortEventListener
 import kotlinx.coroutines.CoroutineScope
 
 
+fun startSerialListener(onButtonDetected: (Int) -> Unit) {
+    val port = SerialPort("COM8")
+    try {
+        port.openPort()
+        port.setParams(
+            SerialPort.BAUDRATE_9600,
+            SerialPort.DATABITS_8,
+            SerialPort.STOPBITS_1,
+            SerialPort.PARITY_NONE
+        )
+
+        port.addEventListener(object : SerialPortEventListener {
+            override fun serialEvent(event: SerialPortEvent) {
+                if (event.isRXCHAR) {
+                    val data = port.readString(event.eventValue)?.trim()
+                    when (data) {
+                        "B1" -> onButtonDetected(4)
+                        "B2" -> onButtonDetected(3)
+                        "B3" -> onButtonDetected(2)
+                        "B4" -> onButtonDetected(1)
+                        "B5" -> onButtonDetected(0)
+                    }
+                }
+            }
+        })
+
+    } catch (e: SerialPortException) {
+
+        println("Serial error: ${e.message}")
+    }
+}
+
 @Composable
 @Preview
 fun App() {
@@ -197,36 +229,5 @@ fun App() {
     }
 }
 
-fun startSerialListener(onButtonDetected: (Int) -> Unit) {
-    val port = SerialPort("COM8")
-    try {
-        port.openPort()
-        port.setParams(
-            SerialPort.BAUDRATE_9600,
-            SerialPort.DATABITS_8,
-            SerialPort.STOPBITS_1,
-            SerialPort.PARITY_NONE
-        )
-
-        port.addEventListener(object : SerialPortEventListener {
-            override fun serialEvent(event: SerialPortEvent) {
-                if (event.isRXCHAR) {
-                    val data = port.readString(event.eventValue)?.trim()
-                    when (data) {
-                        "B1" -> onButtonDetected(4)
-                        "B2" -> onButtonDetected(3)
-                        "B3" -> onButtonDetected(2)
-                        "B4" -> onButtonDetected(1)
-                        "B5" -> onButtonDetected(0)
-                    }
-                }
-            }
-        })
-
-    } catch (e: SerialPortException) {
-        
-        println("Serial error: ${e.message}")
-    }
-}
 
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This is a Kotlin Multiplatform project targeting Desktop.
 
 * `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
@@ -9,3 +10,7 @@ This is a Kotlin Multiplatform project targeting Desktop.
 
 
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+=======
+# Gamepad
+In this project I created device that you can connect to your computer or laptop and control my software or some game.
+>>>>>>> 086c818b2739befc5b06b5797f9a2316b88cabc4
