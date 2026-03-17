@@ -29,4 +29,7 @@ then some coding
 
 then I created cool military styled 3d printed case...
 
+![Demo video]https://github.com/user-attachments/assets/80c9aa91-8275-4a01-95e6-1b2f7afee497
+
+tadaa
 
